@@ -6,8 +6,6 @@ async function connect(state, url, dbName, mongoClient = MongoClient, promise = 
   try {
     const client = await mongoClient.connect(url, {
       promiseLibrary: promise,
-      reconnectTries: Number.MAX_VALUE,
-      reconnectInterval: 1000,
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -20,12 +18,11 @@ async function connect(state, url, dbName, mongoClient = MongoClient, promise = 
   }
 }
 
+function isConnected(state) {
+  return state.db && state.db.serverConfig && state.db.serverConfig.isConnected();
+}
+
 const factory = state => ({
-
-  isConnected() {
-    return state.db && state.db.serverConfig && state.db.serverConfig.isConnected();
-  },
-
   disconnect() {
     state.db.serverConfig.close();
     state.db = null;
@@ -33,7 +30,7 @@ const factory = state => ({
   },
 
   async collection(collectionName, configConnection) {
-    if ((!state.db || !state.db.serverConfig.isConnected()) && configConnection) {
+    if (!isConnected(state)) {
       await connect(state, configConnection.uri, configConnection.base);
     }
 

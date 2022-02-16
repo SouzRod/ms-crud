@@ -1,28 +1,27 @@
 'use strict';
 
 const crudWrapper = (adapters, applicatioName) => {
+  const get = (request, reply) => adapters.get({
+    onSuccess: data => reply.response(data).code(200),
+    onError: error => reply.response(error).code(error.statusCode),
+  });
 
-  const get = (request, reply) => {
-
+  const post = (request, reply) => {
     const payload = {
-      ...request.query,
+      ...request.payload,
       applicationName: applicatioName,
     };
 
-
-    return adapters.get({
+    return adapters.post({
       payload,
-      headers: {
-        ...request.headers,
-      },
-
       onSuccess: data => reply.response(data).code(200),
       onError: error => reply.response(error).code(error.statusCode),
-
     });
   };
+
   return {
     get,
+    post,
   };
 };
 

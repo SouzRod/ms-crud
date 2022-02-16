@@ -1,9 +1,11 @@
 'use strict';
 
+const Joi = require('joi');
+
 module.exports = {
   request: {
-    get: {
-      // Implement your code
-    },
+    get: {},
+    headers: {},
+    post: Joi.object({ name: Joi.string() }),
   },
 };

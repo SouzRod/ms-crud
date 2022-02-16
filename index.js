@@ -8,12 +8,11 @@ const init = async () => {
     await serverInstance.start();
 
     console.info({
-      message: `App running on ${serverInstance.info.protocol}:
-    ${serverInstance.info.host}:${serverInstance.info.port}`,
+      message: `App running on ${serverInstance.info.protocol}://localhost:${serverInstance.info.port}`,
     });
 
   } catch (error) {
-    console.info({ message: `App failed to start ${error.message}` });
+    console.error({ message: `App failed to start ${error.message}` });
   }
 };
 

@@ -2,6 +2,4 @@
 
 const crudSchema = require('./crudSchema');
 
-module.exports = {
-  crudSchema,
-};
+module.exports = crudSchema;

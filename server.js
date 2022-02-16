@@ -7,7 +7,6 @@ const plugins = require('./plugins');
 
 module.exports = (async () => {
   const server = Hapi.server({ port: config.app.port, router: { isCaseSensitive: false } });
-
   server.realm.modifiers.route.prefix = config.stripPrefix.path;
 
   await server.register(plugins);

@@ -8,4 +8,9 @@ module.exports = adapters => ({
     adapters,
     application.name,
   ).get,
+
+  post: crudController(
+    adapters,
+    application.name,
+  ).post,
 });
