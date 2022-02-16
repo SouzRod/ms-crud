@@ -26,8 +26,6 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.0.0",
-    "dd-trace": "^0.35.0",
-    "deasync": "^0.1.13",
     "@hapi/hapi": "^17.9.0",
     "@hapi/inert": "^5.2.0",
     "@hapi/vision": "^5.5.2",

@@ -16,12 +16,8 @@ const crudWrapper = (adapters, applicatioName) => {
         ...request.headers,
       },
 
-      onSuccess: (data) => {
-        return reply.response(data).code(200);
-      },
-      onError: (error) => {
-        return reply.response(error).code(error.statusCode);
-      },
+      onSuccess: data => reply.response(data).code(200),
+      onError: error => reply.response(error).code(error.statusCode),
 
     });
   };

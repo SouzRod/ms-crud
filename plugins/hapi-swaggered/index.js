@@ -2,7 +2,7 @@
 
 const hapiSwaggered = require('hapi-swaggered');
 const { version } = require('../../package.json');
-const { plugins: { swagger }, stripPrefix: { path } } = require('../../config');
+const { stripPrefix: { path } } = require('../../config');
 
 const options = {
   tags: {

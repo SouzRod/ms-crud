@@ -15,11 +15,12 @@ describe('Unit tests for crud adapter', () => {
       headers: {
         host: 'http://localhost:8080',
       },
-      payload: {}, /* repositoryMongoDb: {
-        testCollection: {
-          findOne: objSinon.spy(() => Promise.resolve({})),
+      payload: {},
+      repository: {
+        usersCollection: {
+          findOne: objSinon.spy(() => Promise.resolve({ id: '123456', name: 'Leo Santander' })),
         },
-      }, */
+      },
       onSuccess: objSinon.spy(onSuccess => onSuccess),
       onError: objSinon.spy(onError => onError),
     };
@@ -41,13 +42,17 @@ describe('Unit tests for crud adapter', () => {
     it('should return object success when get method', async () => {
       await crudWrapper(mockDependencies).get(mockDependencies);
       const result = mockDependencies.onSuccess.returnValues[0];
-      expect(result).to.be.contain('Running application on port 3001...');
+      expect(result.name).to.be.equal('Leo Santander');
     });
   });
 
   context('Get error', () => {
-    it('should return error 500 in get method', async () => {
-      mockDependencies.config = null;
+    it('should return error when database returns error', async () => {
+      mockDependencies.repository = {
+        usersCollection: {
+          findOne: objSinon.spy(() => Promise.reject(new Error('Error'))),
+        },
+      };
       const result = await crudWrapper(mockDependencies).get(mockDependencies);
       expect(result).to.have.property('stack');
       expect(result).to.have.property('message');

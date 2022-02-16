@@ -15,7 +15,7 @@ module.exports = {
     rules: {
       'consistent-return': 'off',
       'prefer-promise-reject-errors': 'off',
-      'no-param-reassign': 'on',
+      'no-param-reassign': 0,
       'no-plusplus': 'off',
       'no-continue': 'off',
       'import/no-unresolved': 'off',

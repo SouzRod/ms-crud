@@ -2,24 +2,25 @@
 
 const { MongoClient } = require('mongodb');
 
-const factory = (state) => ({
-  async connect(state, url, dbName, mongoClient = MongoClient, promise = Promise) {
-    try {
-      const client = await mongoClient.connect(url, {
-        promiseLibrary: promise,
-        reconnectTries: Number.MAX_VALUE,
-        reconnectInterval: 1000,
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
-  
-      state.db = client.db(dbName);
-      return state;
-    } catch (err) {
-      console.log(`Mongo failed to connect ${err}`);
-      throw new Error(`Mongo failed to connect ${err}`);
-    }
-  },
+async function connect(state, url, dbName, mongoClient = MongoClient, promise = Promise) {
+  try {
+    const client = await mongoClient.connect(url, {
+      promiseLibrary: promise,
+      reconnectTries: Number.MAX_VALUE,
+      reconnectInterval: 1000,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    state.db = client.db(dbName);
+    return state;
+  } catch (err) {
+    console.log(`Mongo failed to connect ${err}`);
+    throw new Error(`Mongo failed to connect ${err}`);
+  }
+}
+
+const factory = state => ({
 
   isConnected() {
     return state.db && state.db.serverConfig && state.db.serverConfig.isConnected();

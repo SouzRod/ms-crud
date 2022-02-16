@@ -1,4 +1,5 @@
 'use strict';
+
 const server = require('./server');
 
 const init = async () => {

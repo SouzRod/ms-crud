@@ -7,4 +7,4 @@ const adapters = require('../adapters')({
   repository,
 });
 
-module.exports = factory(adapters, config);
+module.exports = factory(adapters);

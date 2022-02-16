@@ -3,7 +3,7 @@
 const application = require('../../package.json');
 const crudController = require('./crudController');
 
-module.exports = (adapters, config) => ({
+module.exports = adapters => ({
   get: crudController(
     adapters,
     application.name,

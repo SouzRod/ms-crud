@@ -16,11 +16,11 @@ module.exports = {
     port: process.env.PORT,
     httpsPort: process.env.HTTPS_PORT,
   },
-  mongo:{
+  mongo: {
     uri: process.env.MONGO_URI,
     base: process.env.MONGO_DATABASE,
     collections: {
       users: process.env.MONGO_USERS_COLLECTION,
     },
-  }
+  },
 };
