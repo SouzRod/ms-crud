@@ -2,7 +2,6 @@
 
 const { expect }      = require('chai');
 const objSinon        = require('sinon');
-const adapters        = require('../../../../v1/adapters');
 const crudWrapper   = require('../../../../v1/adapters/crud');
 const config          = require('../../../../config');
 
@@ -27,11 +26,6 @@ describe('Unit tests for crud adapter', () => {
   });
 
   context('smoke tests', () => {
-    it('should have a get adapter created', () => {
-      const { get } = adapters(mockDependencies);
-      expect(get).to.be.a('function');
-    });
-
     it('should have a get crudWrapper created', async () => {
       const { get } = crudWrapper(mockDependencies);
       expect(get).to.be.a('function');
