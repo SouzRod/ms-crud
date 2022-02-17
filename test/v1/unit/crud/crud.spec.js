@@ -1,7 +1,6 @@
 'use strict';
 
 const { expect }      = require('chai');
-const objSinon        = require('sinon');
 const crudWrapper   = require('../../../../v1/adapters/crud');
 const config          = require('../../../../config');
 
@@ -17,12 +16,12 @@ describe('Unit tests for crud adapter', () => {
       payload: {},
       repository: {
         usersCollection: {
-          findMany: objSinon.spy(() => Promise.resolve({ id: '123456', name: 'Leo Santander' })),
-          insert: objSinon.spy(() => Promise.resolve({ id: '123456', name: 'Leo Santander' })),
+          findMany: () => Promise.resolve({ id: '123456', name: 'Leo Santander' }),
+          insert: () => Promise.resolve({ id: '123456', name: 'Leo Santander' }),
         },
       },
-      onSuccess: objSinon.spy(onSuccess => onSuccess),
-      onError: objSinon.spy(onError => onError),
+      onSuccess: onSuccess => onSuccess,
+      onError: onError => onError,
     };
   });
 
@@ -36,14 +35,12 @@ describe('Unit tests for crud adapter', () => {
 
   context('ok', () => {
     it('should return object success when get method', async () => {
-      await crudWrapper(mockDependencies).get(mockDependencies);
-      const result = mockDependencies.onSuccess.returnValues[0];
+      const result = await crudWrapper(mockDependencies).get(mockDependencies);
       expect(result.name).to.be.equal('Leo Santander');
     });
 
     it('should return object success when post method', async () => {
-      await crudWrapper(mockDependencies).post(mockDependencies);
-      const result = mockDependencies.onSuccess.returnValues[0];
+      const result = await crudWrapper(mockDependencies).post(mockDependencies);
       expect(result.name).to.be.equal('Leo Santander');
     });
   });
@@ -52,7 +49,7 @@ describe('Unit tests for crud adapter', () => {
     it('get should return error when database returns error', async () => {
       mockDependencies.repository = {
         usersCollection: {
-          findOne: objSinon.spy(() => Promise.reject(new Error('Error'))),
+          findMany: () => Promise.reject(new Error('Error')),
         },
       };
       const result = await crudWrapper(mockDependencies).get(mockDependencies);
@@ -63,7 +60,7 @@ describe('Unit tests for crud adapter', () => {
     it('post should return error when database returns error', async () => {
       mockDependencies.repository = {
         usersCollection: {
-          findOne: objSinon.spy(() => Promise.reject(new Error('Error'))),
+          insert: () => Promise.reject(new Error('Error')),
         },
       };
       const result = await crudWrapper(mockDependencies).post(mockDependencies);
