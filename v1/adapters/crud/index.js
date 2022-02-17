@@ -22,10 +22,9 @@ const crudWrapper = ({
   }) => {
     try {
       const { name } = payload;
-      console.log(`body: ${{ name }}`);
+
       const result = await repository.usersCollection.insert({ name });
 
-      console.log(`result: ${result}`);
       return onSuccess(result);
     } catch (errorCatch) {
       return onError(errorCatch);

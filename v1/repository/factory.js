@@ -19,7 +19,7 @@ const defaultFindUpdateConfig = ({
 module.exports = ({ db, collectionName, configConnection }) => ({
   insert: async (item) => {
     const collection = await db.collection(collectionName, configConnection);
-    const result = collection.insertOne(Object.assign({ _id: UUID('v4') }, item));
+    const result = await collection.insertOne(Object.assign({ _id: UUID('v4') }, item));
     return result.ops[0];
   },
   createOrUpdateWithWhere: async (filter, data) => {

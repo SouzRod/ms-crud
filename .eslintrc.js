@@ -13,6 +13,7 @@ module.exports = {
       'mocha': true
     },
     rules: {
+      "no-console": "off",
       'consistent-return': 'off',
       'prefer-promise-reject-errors': 'off',
       'no-param-reassign': 0,
