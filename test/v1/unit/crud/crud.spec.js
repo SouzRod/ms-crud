@@ -18,6 +18,8 @@ describe('Unit tests for crud adapter', () => {
         usersCollection: {
           findMany: () => Promise.resolve({ id: '123456', name: 'Leo Santander' }),
           insert: () => Promise.resolve({ id: '123456', name: 'Leo Santander' }),
+          updateAndFind: () => Promise.resolve({ id: '123456', name: 'Leo Santander' }),
+          deleteOne: () => Promise.resolve({ id: '123456', name: 'Leo Santander' }),
         },
       },
       onSuccess: onSuccess => onSuccess,
@@ -43,6 +45,16 @@ describe('Unit tests for crud adapter', () => {
       const result = await crudWrapper(mockDependencies).post(mockDependencies);
       expect(result.name).to.be.equal('Leo Santander');
     });
+
+    it('should return object success when put method', async () => {
+      const result = await crudWrapper(mockDependencies).put(mockDependencies);
+      expect(result.name).to.be.equal('Leo Santander');
+    });
+
+    it('should return object success when del method', async () => {
+      const result = await crudWrapper(mockDependencies).del(mockDependencies);
+      expect(result.message).to.be.equal('User has been successfully deleted!');
+    });
   });
 
   context('error', () => {
@@ -64,6 +76,28 @@ describe('Unit tests for crud adapter', () => {
         },
       };
       const result = await crudWrapper(mockDependencies).post(mockDependencies);
+      expect(result).to.have.property('stack');
+      expect(result).to.have.property('message');
+    });
+
+    it('put should return error when database returns error', async () => {
+      mockDependencies.repository = {
+        usersCollection: {
+          updateAndFind: () => Promise.reject(new Error('Error')),
+        },
+      };
+      const result = await crudWrapper(mockDependencies).put(mockDependencies);
+      expect(result).to.have.property('stack');
+      expect(result).to.have.property('message');
+    });
+
+    it('del should return error when database returns error', async () => {
+      mockDependencies.repository = {
+        usersCollection: {
+          deleteOne: () => Promise.reject(new Error('Error')),
+        },
+      };
+      const result = await crudWrapper(mockDependencies).del(mockDependencies);
       expect(result).to.have.property('stack');
       expect(result).to.have.property('message');
     });

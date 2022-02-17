@@ -4,7 +4,7 @@ const Joi = require('joi');
 
 module.exports = {
   request: {
-    get: {},
-    post: Joi.object({ name: Joi.string() }),
+    params: Joi.object({ id: Joi.string() }),
+    payload: Joi.object({ name: Joi.string() }),
   },
 };

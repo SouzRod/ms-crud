@@ -9,4 +9,10 @@ module.exports = dependencies => ({
   post: crudWrapper({
     repository: dependencies.repository,
   }).post,
+  put: crudWrapper({
+    repository: dependencies.repository,
+  }).put,
+  del: crudWrapper({
+    repository: dependencies.repository,
+  }).del,
 });

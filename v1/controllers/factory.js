@@ -13,4 +13,14 @@ module.exports = adapters => ({
     adapters,
     application.name,
   ).post,
+
+  put: crudController(
+    adapters,
+    application.name,
+  ).put,
+
+  del: crudController(
+    adapters,
+    application.name,
+  ).del,
 });

@@ -31,12 +31,49 @@ const post = {
       options: {
         allowUnknown: true,
       },
-      payload: crudSchema.request.post,
+      payload: crudSchema.request.payload,
+    },
+  },
+};
+
+const put = {
+  path: '/v1/user/{id}',
+  method: 'PUT',
+  config: {
+    description: 'Description text here',
+    notes: 'Describe your notes here',
+    tags: ['api'],
+    handler: controller.put,
+    validate: {
+      options: {
+        allowUnknown: true,
+      },
+      payload: crudSchema.request.payload,
+      params: crudSchema.request.params,
+    },
+  },
+};
+
+const del = {
+  path: '/v1/user/{id}',
+  method: 'DELETE',
+  config: {
+    description: 'Description text here',
+    notes: 'Describe your notes here',
+    tags: ['api'],
+    handler: controller.del,
+    validate: {
+      options: {
+        allowUnknown: true,
+      },
+      params: crudSchema.request.params,
     },
   },
 };
 
 module.exports = [
   post,
+  put,
   get,
+  del,
 ];

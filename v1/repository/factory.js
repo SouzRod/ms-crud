@@ -47,6 +47,11 @@ module.exports = ({ db, collectionName, configConnection }) => ({
     const collection = await db.collection(collectionName, configConnection);
     return collection.findOne(filter, { projection });
   },
+  deleteOne: async (filter) => {
+    const collection = await db.collection(collectionName, configConnection);
+    const { result } = await collection.deleteOne(filter);
+    return result;
+  },
   count: async (item) => {
     const collection = await db.collection(collectionName, configConnection);
     return collection.find(item).count();
