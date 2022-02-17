@@ -14,3 +14,4 @@ curl --location --request POST 'http://localhost:3001/api/mscrud/v1/crud' \
 
 ### Swagger
 
+http://localhost:3001/api/mscrud/docs#/
