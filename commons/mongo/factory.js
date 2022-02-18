@@ -13,7 +13,7 @@ async function connect(state, url, dbName, mongoClient = MongoClient, promise = 
     state.db = client.db(dbName);
     return state;
   } catch (err) {
-    console.log(`Mongo failed to connect ${err}`);
+    console.error(`Mongo failed to connect ${err}`);
     throw new Error(`Mongo failed to connect ${err}`);
   }
 }
